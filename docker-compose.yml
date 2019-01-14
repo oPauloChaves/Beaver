@@ -1,23 +1,25 @@
 version: '3'
 services:
    redis:
-      image: 'redis:3.2-alpine'
+      image: 'redis:5.0-alpine'
       volumes:
          - 'redis_data:/data'
       restart: always
    web:
       image: "clivern_beaver:1.1.0"
       build: .
-      command: './beaver'
       ports:
          - "8080:8080"
       depends_on:
          - redis
       volumes:
-         - './var:/go/src/github.com/clivern/beaver/var'
+         - './var/logs:/var/logs'
       restart: always
       healthcheck:
-         test: './beaver -exec=health'
+         test: '/go/beaver -exec=health'
          interval: 5s
          timeout: 2s
          retries: 5
+
+volumes:
+  redis_data:

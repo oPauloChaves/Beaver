@@ -64,6 +64,8 @@ Also running beaver with docker still an option.
 
 ```bash
 $ cp config.yml config.dist.yml
+$ export GO111MODULE=on # if project within GOPATH
+$ go mod vendor
 $ docker-compose build
 $ docker-compose up -d
 ```
